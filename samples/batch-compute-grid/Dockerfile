@@ -20,26 +20,26 @@ COPY --chown=was:was Mailer.xml /work/xjcl/
 # 0. Copy to a different name so it doesn't get run with every invocation to configure.sh
 COPY --chown=was:was was-config.props /work/config/config.props
 
-# 1. Just configure scheduler
+# 1. Configure the job scheduler
 COPY --chown=was:was scheduler.py /work/config/
 RUN /work/configure.sh /work/config/scheduler.py
 
-# 2. security
+# 2. Enable application security
 COPY --chown=was:was security.py /work/config/
 RUN /work/configure.sh /work/config/security.py
 
-# 3. installApps
+# 3. Install the two batch sample applications
 COPY --chown=was:was installApps.py /work/config/
 RUN /work/configure.sh /work/config/installApps.py
 
-# 4. configure mailer datasource
+# 4. configure mailer application datasource
 COPY --chown=was:was mailerDS.py /work/config/
 RUN /work/configure.sh /work/config/mailerDS.py
 
-# 5. JVM args including enabling debug mode
+# 5. Configure JVM args including enabling debug mode
 RUN work/applyConfig.sh /work/config/config.props
 
-# 6. HealthCenter properties
+# 6. Add HealthCenter properties
 COPY --chown=was:was jvm.hc.props /work/config/jvm.hc.props
 # --- HealthCenter output dir
 RUN mkdir /work/hc

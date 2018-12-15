@@ -10,7 +10,7 @@ AttributeInfo=services
 #
 #Properties
 #
-startupTraceSpecification="*=info:com.ibm.ws.batch*=all:com.ibm.ws.grid.*=all:com.ibm.ws.gridcontainer.*=all:com.ibm.ws.ci.*=all:com.ibm.ws.batch.jobmanagement.web.*=info"
+startupTraceSpecification="*=info"  # Batch "MustGather" trace =>   "*=info:com.ibm.ws.batch*=all:com.ibm.ws.grid.*=all:com.ibm.ws.gridcontainer.*=all:com.ibm.ws.ci.*=all:com.ibm.ws.batch.jobmanagement.web.*=info"
 enable=true #boolean,default(false)
 context=!{serverName}
 memoryBufferSize=8 #integer,required,default(8)
