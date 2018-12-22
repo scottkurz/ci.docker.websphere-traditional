@@ -17,6 +17,11 @@ See the Dockerfile for a breakdown of what the build does.
 
 `docker run --name batch-cg -p 9043:9043 -p 9443:9443 -p 7777:7777 -it batch-cg:latest`
 
+## Running the container after mounting your own password
+
+`docker run --name batch-cg -v /my/host/volume/PASSWORD:/tmp/PASSWORD  -p 9043:9043 -p 9443:9443 -p 7777:7777 -it batch-cg:latest bash -c 'rm /work/passwordupdated; /work/start_server.sh'`
+
+(For Windows make sure PASSWORD file uses LF, not CRLF for EOL !!!) 
 
 ## Running the jobs
 
