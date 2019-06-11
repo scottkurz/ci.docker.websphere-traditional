@@ -76,7 +76,10 @@ COPY --chown=was:root SimpleCIEar.ear /work/app/
 COPY --chown=was:root installApps.py /work/config/
 RUN /work/configure.sh /work/config/installApps.py
 
-# 9. Now copy job definitions (which may be more dynamic than the EAR artifacts)
+COPY --chown=was:root monitoredApp.py /work/config/
+RUN /work/configure.sh /work/config/monitoredApp.py
+
+# 10. Now copy job definitions (which may be more dynamic than the EAR artifacts)
 COPY --chown=was:root Mailer.xml /work/xjcl/
 COPY --chown=was:root SimpleCIxJCL.xml /work/xjcl/
 
