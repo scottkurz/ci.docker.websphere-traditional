@@ -32,30 +32,40 @@ RUN [ "/opt/IBM/WebSphere/AppServer/java/8.0/bin/java", "-Dij.database=jdbc:derb
 #
 
 # 0. Copy to a different name so it doesn't get run with every invocation to configure.sh
-COPY --chown=was:root was-config.props /work/config/config.props
+COPY --chown=was:root was-config.props /work/config/config.properties
 
 # 1. Configure the job scheduler
 COPY --chown=was:root scheduler.py /work/config/
+
+### 6 ---> 34571b97395d
+
 RUN /work/configure.sh /work/config/scheduler.py
+
+### 7 ---> 7fcb819a7e4d
 
 # 2. Enable application security (using the same wsadmin id as userid)
 COPY --chown=was:root security.py /work/config/
 RUN /work/configure.sh /work/config/security.py
 
 # 3. Configure JVM args including enabling debug mode, configure startup service
-RUN work/applyConfig.sh /work/config/config.props
+RUN work/applyConfig.sh /work/config/config.properties
 
 # 4. Add HealthCenter properties
-COPY --chown=was:root jvm.hc.props /work/config/jvm.hc.props
+COPY --chown=was:root jvm.hc.props /work/config/jvm.hc.properties
 # --- HealthCenter output dir
 RUN mkdir /work/hc
-RUN work/applyConfig.sh /work/config/jvm.hc.props
+RUN work/applyConfig.sh /work/config/jvm.hc.properties
+
+### 13
 
 # 5. Create working directory for application HFS output
 RUN mkdir /work/batch-output
 
 # 6. configure mailer application datasource
 COPY --chown=was:root mailerDS.py /work/config/
+
+#USER root
+
 RUN /work/configure.sh /work/config/mailerDS.py
 
 # 7. Copy application EAR files
